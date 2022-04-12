@@ -13,26 +13,26 @@
     <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
-        <header>
-            <div class="conteiner">
-                <p>Галерея фото</p>
-            </div>
-        </header>
-        <main>
-            <div class="conteiner">
+    <header>
+        <div class="conteiner header_box">
+            <p>Галерея фото</p>
+        </div>
+    </header>
+    <main>
+        <div class="conteiner main_box">
+            <div class="main_img">
                 <? while($data = mysqli_fetch_assoc($table)) : ?>
-                    <a href="img.php?id=<?= $data["id"]?>" name="modal"><img src="<?=$dirSmail."/".$data["name"] ?>" alt=""></a>
-                <?php endwhile; ?>
-                <form action="" method="post">
-                    <input type="file" />
-                </form>
+                <a href="img.php?id=<?= $data["id"]?>" name="modal"><img src="<?=$dirSmail."/".$data["name"] ?>" alt=""></a>
+            <?php endwhile; ?>
             </div>
-        </main>
-        <footer>
-        	<div class="conteiner">
-                <p></p>
-            </div>
-        </footer>
+            
+        </div>
+    </main>
+    <footer>
+    	<div class="conteiner footer_box">
+            <p>Copyright &copy; 2022. Образовательная работа на Geekbrains | PHP часть 5</p>
+        </div>
+    </footer>
 </div>
 </body>
 </html>
