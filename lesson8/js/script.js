@@ -33,12 +33,12 @@ const ajaxUser = (id) => {
 
 const saveGoods = (id) => {
   $(document).ready(function ($) {
-    $("#save-goods-"+id).click(function () {
-      $("#save-goods-form-"+id).ajaxSubmit({
+    $("#save-goods-" + id).click(function () {
+      $("#save-goods-form-" + id).ajaxSubmit({
         type: "POST",
-        url: "../controlers/save-goods.php?id="+id,
+        url: "../controlers/save-goods.php?id=" + id,
         success: function () {
-            alert("Товар Сохранен!")
+          alert("Товар Сохранен!");
         },
       });
     });
@@ -47,54 +47,97 @@ const saveGoods = (id) => {
 
 const removeGoods = (id) => {
   $(document).ready(function ($) {
-    $("#remove-goods-"+id).click(function () {
+    $("#remove-goods-" + id).click(function () {
       $.ajax({
         type: "POST",
-        url: "../controlers/remove-goods.php?id="+id,
+        url: "../controlers/remove-goods.php?id=" + id,
         success: function (data) {
-            $(".admin_goods").html(data);
-            alert("Товар удален!")
+          $(".admin_goods").html(data);
+          alert("Товар удален!");
         },
       });
     });
   });
 };
 
-const addGoods = () =>{
+const editCountBasket = (id, price) => {
+  $(document).ready(function ($) {
+    $(".basket-count-" + id).keyup(function () {
+      $.ajax({
+        type: "POST",
+        url: "../controlers/edit-count-basket.php",
+        data: { id, count: $(this).val(), price },
+        success: function (data) {
+          $(".basket_price-" + id).html(data);
+        },
+      });
+    });
+    $(".basket-count-" + id).click(function () {
+      $.ajax({
+        type: "POST",
+        url: "../controlers/edit-count-basket.php",
+        data: { id, count: $(this).val(), price },
+        success: function (data) {
+          $(".basket_price-" + id).html(data);
+        },
+      });
+    });
+  });
+};
+
+const addGoods = () => {
   $.ajax({
     type: "POST",
     url: "../controlers/add-goods.php",
     success: function (data) {
       $(".admin_goods").html(data);
-      alert("Товар добавлен!")
-  },
-  })
-}
+      alert("Товар добавлен!");
+    },
+  });
+};
+
+const removeBasket = (id) => {
+  $(document).ready(function ($) {
+    $(".remove-basket-"+id).click(function () {
+      $.ajax({
+        type: "POST",
+        url: "../controlers/del-goods.php",
+        data: "id=" + this.id,
+        success: function (data) {
+          $(".basket_conteiner-"+id).remove()
+          if(data) {
+            $('.basket').html(data)
+            $('.basket_bay').addClass('none')
+          }
+          alert("Товар удален!");
+        },
+      });
+    });
+  });
+};
 
 $(document).ready(function ($) {
+  $(".basket_bay").click(function () {
+    $.ajax({
+      type: "POST",
+      url: "../controlers/basket-bay.php",
+      success: function (data) {
+        $(".basket").html(data);
+      },
+    });
+  });
+
   $(".listbuttom").click(function () {
     $.ajax({
       type: "POST",
       url: "../controlers/basket.php",
-      data: "id="+this.id,
+      data: "id=" + this.id,
       success: function (data) {
-        $(".admin_goods").html(data);
-        alert("Товар добавлен!")
-    },
-    })
-  })
-
-  $(".remove-basket").click(function () {
-    $.ajax({
-      type: "POST",
-      url: "../controlers/del-goods.php",
-      data: "id="+this.id,
-      success: function (data) {
-        $(".basket").html(data);
-        alert("Товар удален!")
-    },
-    })
-  })
+        $(".res").html(data);
+        alert("Товар добавлен!");
+      },
+    });
+  });
 
   $(".admin_img_open_modal").click(function () {
     $(".modal_img").html("");
@@ -114,10 +157,11 @@ $(document).ready(function ($) {
             url:
               "/controlers/file.php?id=" +
               $(this).get()[0].labels[0].id +
-              "&num=photo1&photo="+$('.modal_photo-1').get()[0].lastElementChild.alt,
+              "&num=photo1&photo=" +
+              $(".modal_photo-1").get()[0].lastElementChild.alt,
             target: ".modal_photo-1",
             success: function () {
-              $("#photo-"+this.id)[0].src= this.lastElementChild.src
+              $("#photo-" + this.id)[0].src = this.lastElementChild.src;
               // После загрузки файла очистим форму.
               $("#img_goods-photo1-form")[0].reset();
             },
@@ -171,4 +215,3 @@ $(document).ready(function ($) {
     }
   });
 });
-

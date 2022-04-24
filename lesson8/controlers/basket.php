@@ -1,16 +1,18 @@
 <?php
 session_start();
 $id = $_POST['id'];
-if ($_SESSION['cartId']) {
-    foreach($_SESSION['cartId'] as $item){
-        if($item===$id){
+if ($_SESSION['basket']) {
+    for ($i=0;$i<count($_SESSION['basket']);$i++){
+        if($_SESSION['basket'][$i]['id']===$id){
             $basket = true;
+            ++$_SESSION['basket'][$i]['count'];
         }
     }
     if(!$basket){
-        array_push($_SESSION['cartId'], $id);
+        array_push($_SESSION['basket'], ["id"=>$id, 'count'=>1]);
     }
 } else {
-    $_SESSION['cartId'] = [0 => $id];
+    $_SESSION['basket'] = [0 => ["id"=>$id, 'count'=>1]];
 }
-header("location: ../index.php");
+print_r($_SESSION['basket']);
+//header("location: ../index.php");

@@ -7,6 +7,7 @@ $table = mysqli_query($connect, $sql);
 <main>
     <div class="conteiner">
         <div class="main_box">
+            <div class="res"></div>
             <div class="main_img">
                 <? while ($data = mysqli_fetch_assoc($table)) :
                 if($data["photo1"]){

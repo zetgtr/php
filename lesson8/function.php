@@ -19,7 +19,6 @@ function getAll($link, $table)
 
 function newUser($link, $login, $pass, $sessionId)
 {
-
     $t = "INSERT INTO users (login, pass, session) VALUES ('%s','%s','%s')";
     
     $query = sprintf($t, mysqli_real_escape_string($link, $login), mysqli_real_escape_string($link, $pass), mysqli_real_escape_string($link, $sessionId));
@@ -82,7 +81,7 @@ function getCart($link, $id)
 
     for ($i = 0; $i < $n; $i++) {
         $row = mysqli_fetch_assoc($result);
-        $res[] = $row;
+        $res = $row;
     }
     return $res;
 }
@@ -147,4 +146,31 @@ function addGoods($link){
 function removeGoods($link, $id){
     $query = "DELETE FROM `goods` WHERE `goods`.`id` = $id";
     mysqli_query($link, $query);
+}
+
+function bayBasket($link, $user, $goods, $count){
+
+    $t = "INSERT INTO `purchases` (user, goods, count) VALUES (%s,%s,%s)";
+    
+    $query = sprintf($t, mysqli_real_escape_string($link, $user), mysqli_real_escape_string($link, $goods), mysqli_real_escape_string($link, $count));
+
+    $result = mysqli_query($link, $query);
+    
+    if (!$result) {
+        die(mysqli_error($link));
+    }
+
+    return true;
+}
+
+function getUser($link, $sessionId){
+    $query = "SELECT * FROM `users` WHERE `users`.`session` = '$sessionId'";
+    $result = mysqli_query($link, $query);
+    if (!$result)
+        die(mysqli_error($link));
+    $n = mysqli_num_rows($result);
+    for ($i = 0; $i < $n; $i++) {
+        $row = mysqli_fetch_assoc($result);
+        return $row;
+    }
 }

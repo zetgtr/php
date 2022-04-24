@@ -709,3 +709,69 @@ a {
 .auth_box p{
   margin: 0px;
 }
+
+.basket_count_box{
+display: flex;
+align-items: center;
+}
+
+.basket p{
+  margin: 0;
+}
+
+
+.basket_count_box input{
+  width: 43px;
+}
+
+.basket button {
+  cursor: pointer;
+  border: none;
+  background-color: #00a7cf;
+  border-radius: 5px;
+  padding: 5px 14px;
+  margin-top: 16px;
+  color: #ffffff;
+  transition: all 0.5s;
+}
+
+.basket button:hover {
+  background-color: #72c5d9;
+}
+
+.basket_bay {
+  cursor: pointer;
+  border: none;
+  background-color: #00a7cf;
+  border-radius: 5px;
+  padding: 5px 14px;
+  margin-top: 16px;
+  color: #ffffff;
+  transition: all 0.5s;
+  margin-bottom: 10px;
+}
+
+.basket_bay:hover {
+  background-color: #72c5d9;
+}
+
+.basket_button_box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.basket{
+  width: 100%;
+  height: 100%;
+}
+
+.basket_false{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
